@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -78,9 +77,10 @@ class _CustomStepperState extends State<CustomStepper> {
                                           ),
                                           ElevatedButton(
                                             onPressed: () {
-                                              try {
-                                                functions.delete(_currentStep);
-                                              } catch (e) {}
+                                              functions.delete(_currentStep);
+                                              setState(() {
+                                                _currentStep = 0;
+                                              });
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text("Delete"),

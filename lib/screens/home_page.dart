@@ -18,11 +18,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isLoaded = false;
+
   @override
   void initState() {
     super.initState();
 
     Timer(const Duration(milliseconds: 1800), () {
+      setState(() {
+        isLoaded = true;
+      });
       context.read<Functions>().obtainData();
     });
   }
@@ -37,7 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const TextWidget(),
           SearchWidget(),
-          const CustomStepper(),
+          isLoaded
+              ? const CustomStepper()
+              : const Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
